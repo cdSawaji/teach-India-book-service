@@ -1,31 +1,48 @@
-// Basic server setup
+/**
+   This is a basic server setup. It reads in the config file for all 
+   the service related information.
 
-// TODO: Add detailed documentation for this setup.
-var express    = require('express');
-var app        = express();
+   @author sawajic
+*/
+
+// Importing required modules,
+// 1. express - is the node framework used. 
+var express = require('express');
+
+// 2. body-parser - is used to parse incoming json for POST requests.
 var bodyParser = require('body-parser');
 
+// Initialiing the app
+var app = express();
 
-// TODO: Maintain a separate service level config file
-// Load it on start up and read the values from it.
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+/**
+   Starts the service at the port specified in the config file.
+ */
+function start() {
+    console.log('Starting service ...');
+ 
+    app.use(bodyParser.urlencoded({ extended: true }));
+    app.use(bodyParser.json());
 
-var port = process.env.PORT || 8080;
+    var port = process.env.PORT || 8080;
 
-var router = express.Router();
+    var router = express.Router();
 
-// Initial Testing
-// TODO: Think of a better way to do this.
-router.get('/', function(req, res) {
-    res.json({ message: 'test' });
-});
+    // Initial Testing                                                                                                                                                                   
+    // TODO: Think of a better way to do this.                                                                                                                                           
+    router.get('/', function(req, res) {
+	    res.json({ message: 'test' });
+	});
 
-// Register routes
-app.use('/books', router);
+    // Register routes                                                                                                                                                                   
+    app.use('/books', router);
 
-// Start the server
-app.listen(port);
-console.log('Service started at port : ' + port);
+    // Start the server                                                                                                                                                                  
+    app.listen(port);
+    console.log('Service started at port : ' + port);
 
-// TODO: Add more log messages
+    // TODO: Add more log messages                                                                                                                                                  
+}
+
+exports.start = start;
+
