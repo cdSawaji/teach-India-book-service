@@ -15,6 +15,9 @@ var bodyParser = require('body-parser');
 // Initialiing the app
 var app = express();
 
+// Initializing the model
+var Book = require('./model/book');
+
 /**
    Starts the service at the port specified in the config file.
  */
@@ -30,12 +33,13 @@ function start() {
 
     // Initial Testing                                                                                                                                                                   
     // TODO: Think of a better way to do this.                                                                                                                                           
-    router.get('/', function(req, res) {
-	    res.json({ message: 'test' });
-	});
+    require('./routes')(app);
+    //   router.get('/', function(req, res) {
+    //    res.json({ message: 'test' });
+    //});
 
     // Register routes                                                                                                                                                                   
-    app.use('/books', router);
+    // app.use('/books', router);
 
     // Start the server                                                                                                                                                                  
     app.listen(port);
